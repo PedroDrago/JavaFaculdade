@@ -18,30 +18,24 @@ public class Visualize extends JFrame {
             System.out.println(student);
             JPanel studentPanel = new JPanel();
             studentPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-
             JLabel registrationLabel = new JLabel(student.getRegistration());
             studentPanel.add(registrationLabel);
-
             JLabel nameLabel = new JLabel(student.getName());
             studentPanel.add(nameLabel);
-            // Create the edit button
             JButton editButton = new JButton("Edit");
             editButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Handle edit action here
-                    System.out.println("Edit button clicked for: " + student.getName());
+                    setVisible(false);
+                    Edit edit = new Edit(menu, student);
+                    edit.setVisible(true);
                 }
             });
             studentPanel.add(editButton);
-
-            // Create the delete button
             JButton deleteButton = new JButton("Delete");
             deleteButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Handle delete action here
-                    System.out.println("Delete button clicked for: " + student.getName());
                     students.remove(student);
                     menu.setVisible(true);
                     dispose();
@@ -49,9 +43,7 @@ public class Visualize extends JFrame {
             });
             studentPanel.add(deleteButton);
             visualizePanel.add(studentPanel);
-
         }
-        // Refresh the panel to show the new components
         visualizePanel.revalidate();
         visualizePanel.repaint();
     }
