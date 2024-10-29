@@ -1,17 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Edit extends JFrame {
 
-    private JPanel EditPanel;
-    private JTextField nameField;
-    private JTextField emailField;
+    private final JTextField nameField;
+    private final JTextField emailField;
+    private final JTextField cpfField;
+    private final JTextField ageField;
 
     public Edit(Menu menu, Student student) {
-        EditPanel = new JPanel();
-        EditPanel.setLayout(new GridBagLayout());
+        JPanel editPanel = new JPanel();
+        editPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         setTitle("Edit Student");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -21,46 +20,56 @@ public class Edit extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(10, 10, 10, 10);
-        EditPanel.add(new JLabel("Name:"), gbc);
+        editPanel.add(new JLabel("Name:"), gbc);
         nameField = new JTextField(20);
         nameField.setText(student.getName());
         gbc.gridx = 1;
-        EditPanel.add(nameField, gbc);
+        editPanel.add(nameField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        EditPanel.add(new JLabel("Email:"), gbc);
+        editPanel.add(new JLabel("Email:"), gbc);
         emailField = new JTextField(20);
         emailField.setText(student.getEmail());
         gbc.gridx = 1;
-        EditPanel.add(emailField, gbc);
+        editPanel.add(emailField, gbc);
 
-        JButton saveButton = new JButton("Save");
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Update student details
-                student.setName(nameField.getText());
-                student.setEmail(emailField.getText());
-                menu.setVisible(true);
-                dispose();
-            }
-        });
         gbc.gridx = 0;
         gbc.gridy = 2;
-        EditPanel.add(saveButton, gbc);
+        editPanel.add(new JLabel("Email:"), gbc);
+        cpfField = new JTextField(20);
+        cpfField.setText(student.getCpf());
+        gbc.gridx = 1;
+        editPanel.add(cpfField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        editPanel.add(new JLabel("Email:"), gbc);
+        ageField = new JTextField(20);
+        ageField.setText(student.getCpf());
+        gbc.gridx = 1;
+        editPanel.add(ageField, gbc);
+
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(_ -> {
+            // Update student details
+            student.setName(nameField.getText());
+            student.setEmail(emailField.getText());
+            menu.setVisible(true);
+            dispose();
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        editPanel.add(saveButton, gbc);
 
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menu.setVisible(true);
-                dispose();
-            }
+        cancelButton.addActionListener(_ -> {
+            menu.setVisible(true);
+            dispose();
         });
-        gbc.gridx = 1;
-        EditPanel.add(cancelButton, gbc);
+        gbc.gridx = 5;
+        editPanel.add(cancelButton, gbc);
 
-        setContentPane(EditPanel);
+        setContentPane(editPanel);
     }
 }

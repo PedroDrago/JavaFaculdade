@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Student {
     private int id;
     private String name;
@@ -72,7 +74,7 @@ public class Student {
         this.status = status;
     }
 
-    public Student(int id, String name, String age, String cpf, String registration, String email, String password, Status status) throws Exception {
+    public Student(int id, String name, String age, String cpf, String email, String password, Status status) throws Exception {
         boolean success = true;
         String errorMessage = "";
         this.id = id;
@@ -92,7 +94,10 @@ public class Student {
             success = false;
             errorMessage += " | " + "Invalid cpf";
         }
-        this.registration = registration;
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String formattedDate = currentDate.format(formatter);
+        this.registration = formattedDate + id;
         this.email = email;
         if (!Validator.isValidEmail(email)) {
             success = false;

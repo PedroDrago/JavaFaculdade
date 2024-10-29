@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Visualize extends JFrame {
@@ -13,6 +11,8 @@ public class Visualize extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1280, 720);
         setLocationRelativeTo(null);
+        visualizePanel.setLayout(new BoxLayout(visualizePanel, BoxLayout.Y_AXIS));
+
 
         for (Student student : students) {
             System.out.println(student);
@@ -22,24 +22,22 @@ public class Visualize extends JFrame {
             studentPanel.add(registrationLabel);
             JLabel nameLabel = new JLabel(student.getName());
             studentPanel.add(nameLabel);
+            JLabel emailLabel = new JLabel(student.getEmail());
+            studentPanel.add(emailLabel);
+            JLabel statusLabel = new JLabel(student.getStatus().toString());
+            studentPanel.add(statusLabel);
             JButton editButton = new JButton("Edit");
-            editButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    setVisible(false);
-                    Edit edit = new Edit(menu, student);
-                    edit.setVisible(true);
-                }
+            editButton.addActionListener(_ -> {
+                setVisible(false);
+                Edit edit = new Edit(menu, student);
+                edit.setVisible(true);
             });
             studentPanel.add(editButton);
             JButton deleteButton = new JButton("Delete");
-            deleteButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    students.remove(student);
-                    menu.setVisible(true);
-                    dispose();
-                }
+            deleteButton.addActionListener(_ -> {
+                students.remove(student);
+                menu.setVisible(true);
+                dispose();
             });
             studentPanel.add(deleteButton);
             visualizePanel.add(studentPanel);
